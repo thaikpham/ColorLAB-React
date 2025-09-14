@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
 export const Logo = () => {
-  return <Image src="/sony-logo.png" alt="" width={32} height={32} />;
+  return <Image src="/logo.png" alt="" width={32} height={32} />;
 };
 
 export const LogoIcon = ({ className, uniColor }: { className?: string; uniColor?: boolean }) => {

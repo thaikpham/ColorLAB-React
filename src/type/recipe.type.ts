@@ -1,9 +1,6 @@
 export interface RecipeData {
   id: string;
-  name: {
-    vi: string;
-    en: string;
-  };
+  name: string;
   formattedName: string;
   description: {
     en: string;
@@ -12,17 +9,17 @@ export interface RecipeData {
   type: 'color' | 'bw';
   contrast: 'low' | 'soft' | 'normal' | 'medium' | 'high' | 'very-high';
   saturation:
-    | 'very-low'
-    | 'low'
-    | 'normal'
-    | 'moderate'
-    | 'muted'
-    | 'faded'
-    | 'high'
-    | 'vibrant'
-    | 'super-saturated'
-    | 'maximum'
-    | 'extreme';
+  | 'very-low'
+  | 'low'
+  | 'normal'
+  | 'moderate'
+  | 'muted'
+  | 'faded'
+  | 'high'
+  | 'vibrant'
+  | 'super-saturated'
+  | 'maximum'
+  | 'extreme';
   tags: string[];
   whiteBalance: string;
   settings: {

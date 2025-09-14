@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { TextEffect } from '@/components/ui/text-effect';
 import { AnimatedGroup } from '@/components/ui/animated-group';
 import { HeroHeader } from './header';
+import ContentSection from './content-1';
+import FAQs from './faqs';
 
 const transitionVariants = {
   item: {
@@ -40,7 +42,7 @@ export default function HeroSection() {
                 preset="fade-in-blur"
                 speedSegment={0.3}
                 as="h1"
-                className="text-primary mt-8 max-w-2xl text-5xl font-medium text-balance md:text-6xl lg:mt-16"
+                className="text-primary mt-8 max-w-2xl text-5xl font-bold text-balance md:text-6xl lg:mt-16"
               >
                 Find Your Signature Style
               </TextEffect>
@@ -86,7 +88,7 @@ export default function HeroSection() {
                   variant="ghost"
                   className="h-11 rounded-xl bg-transparent px-5 text-base"
                 >
-                  <Link href="#link">
+                  <Link href="#">
                     <span className="text-muted-foreground text-nowrap">Request a demo</span>
                   </Link>
                 </Button>
@@ -127,6 +129,9 @@ export default function HeroSection() {
           </AnimatedGroup>
         </div>
       </section>
+
+      <ContentSection />
+
       <section className="bg-transparent pt-16 pb-16 md:pb-32">
         <div className="group relative m-auto max-w-5xl px-6">
           <div className="absolute inset-0 z-10 flex scale-95 items-center justify-center opacity-0 duration-500 group-hover:scale-100 group-hover:opacity-100">
@@ -214,6 +219,8 @@ export default function HeroSection() {
           </div>
         </div>
       </section>
+
+      <FAQs />
     </>
   );
 }
