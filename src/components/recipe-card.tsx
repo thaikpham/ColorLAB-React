@@ -85,7 +85,7 @@ export function GameCard({ game }: GameCardProps) {
             <Button
               variant="outline"
               size="icon"
-              className="border-zinc-700 bg-zinc-800/80 transition-all duration-300 hover:border-emerald-500 hover:bg-zinc-700"
+              className="border-border bg-background/80 transition-all duration-300"
             >
               <motion.div
                 animate={{ scale: isHovered ? [1, 1.2, 1] : 1 }}
@@ -115,7 +115,7 @@ export function GameCard({ game }: GameCardProps) {
 
         <CardContent className="relative z-10 p-4">
           <h3
-            className={`mb-1 font-semibold transition-colors duration-300 ${isHovered ? 'text-emerald-400' : ''}`}
+            className={`mb-1 font-semibold transition-colors duration-300 ${isHovered ? 'text-primary' : ''}`}
           >
             {game.title}
           </h3>

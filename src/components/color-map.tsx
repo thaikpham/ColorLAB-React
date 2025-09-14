@@ -1,26 +1,16 @@
 'use client';
 
 import { RecipeData } from '@/type/recipe.type';
-import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import { AnimatedGroup } from './ui/animated-group';
+import ColorDot from './ui/color-dot';
 
 interface ColorMapProps {
   recipes: RecipeData[]
 }
 
 export default function ColorMap({ recipes }: ColorMapProps) {
-  const { push } = useRouter();
-  const [selectedPreset, setSelectedPreset] = useState<string>("");
   const [hoveredPreset, setHoveredPreset] = useState<RecipeData | null>(null);
-
-  const handleNodeClick = useCallback(
-    (id: string) => {
-      setSelectedPreset(id);
-      push(`/recipes/${id}`);
-    },
-    [push],
-  );
 
   const handleNodeHover = useCallback((preset: RecipeData | null) => {
     setHoveredPreset(preset);
@@ -85,43 +75,11 @@ export default function ColorMap({ recipes }: ColorMapProps) {
               </text>
 
               {recipes.map((preset) => (
-                <g
+                <ColorDot
                   key={preset.id}
-                  transform={`translate(${preset.coords.x}, ${preset.coords.y})`}
-                  className="cursor-pointer"
-                  onClick={() => handleNodeClick(preset.id)}
-                  onMouseEnter={() => handleNodeHover(preset)}
-                  onMouseLeave={() => handleNodeHover(null)}
-                >
-                  <circle
-                    r={preset.radius || 10}
-                    fill={preset.personalityColor}
-                    filter="url(#soft-glow)"
-                    opacity={hoveredPreset?.id === preset.id ? 0.6 : 0.2}
-                    className="transition-all duration-300"
-                  />
-
-                  <circle
-                    r={preset.radius || 10}
-                    fill={preset.personalityColor}
-                    stroke={selectedPreset === preset.id ? '#1f2937' : 'transparent'}
-                    strokeWidth="1"
-                    filter={hoveredPreset?.id === preset.id ? 'url(#hover-blur)' : 'none'}
-                    className={`transition-all duration-300 ${hoveredPreset?.id === preset.id ? 'scale-125' : 'scale-100'
-                      }`}
-                  />
-
-                  {preset.trending && (
-                    <polygon
-                      className="z-20"
-                      points="0,-8 2.4,-2.4 8,0 2.4,2.4 0,8 -2.4,2.4 -8,0 -2.4,-2.4"
-                      fill="#FFC700"
-                      stroke="#E6B800"
-                      strokeWidth="0.5"
-                      transform="translate(8, -8) scale(0.8)"
-                    />
-                  )}
-                </g>
+                  hoveredPreset={hoveredPreset}
+                  preset={preset}
+                  handleNodeHover={handleNodeHover} />
               ))}
 
               {hoveredPreset && (

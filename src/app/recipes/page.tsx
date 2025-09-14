@@ -5,7 +5,6 @@ import { getRecipes } from './action/action';
 
 export default async function RecipeListPage() {
   const recipes = await getRecipes()
-  console.log('personality', recipes![0].personalityColor)
   return (
     <>
       <HeroHeader />

@@ -99,7 +99,7 @@ export default function RecipePageComponent() {
       {
         name: 'Adventure',
         icon: <Gamepad2 className="h-8 w-8" />,
-        color: 'from-emerald-500 to-teal-500',
+        color: 'from-primary to-primary/50',
       },
       { name: 'RPG', icon: <Award className="h-8 w-8" />, color: 'from-purple-500 to-indigo-500' },
       {

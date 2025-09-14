@@ -366,9 +366,9 @@ const RecipeDetailComponent = () => {
 
                 {game.discount > 0 ? (
                   <div className="mb-4 flex items-center gap-3">
-                    <Badge className="bg-emerald-600 text-white">-{game.discount}%</Badge>
+                    <Badge className="bg-background text-primary">-{game.discount}%</Badge>
                     <div className="flex items-center gap-2">
-                      <span className="text-zinc-500 line-through">${game.price.toFixed(2)}</span>
+                      <span className="text-primary line-through">${game.price.toFixed(2)}</span>
                       <span className="text-2xl font-bold">
                         ${(game.price * (1 - game.discount / 100)).toFixed(2)}
                       </span>
