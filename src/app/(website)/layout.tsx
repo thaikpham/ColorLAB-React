@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import './globals.css';
+import '@/app/globals.css';
 import Footer from '@/components/footer';
 import GradientBackground from '@/components/ui/gradient-background';
 import { Toaster } from 'sonner';

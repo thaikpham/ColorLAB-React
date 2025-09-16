@@ -15,6 +15,6 @@ export default async function GameDetailComponent(
     return redirect('/not-found')
   }
   return (
-    <RecipeDetailComponent />
+    <RecipeDetailComponent recipe={recipe} />
   );
 }

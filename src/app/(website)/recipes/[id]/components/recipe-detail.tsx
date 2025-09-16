@@ -6,13 +6,30 @@ import { Button } from "@/components/ui/button";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ChevronRight, Cpu, HardDrive, Monitor, ThumbsUp, MemoryStickIcon as Memory, Heart, ShoppingCart, Share2, Star, Users } from "lucide-react";
+import { RecipeData } from "@/type/recipe.type";
+import { ChevronRight, MemoryStickIcon as Memory, Heart, ShoppingCart, Share2, Star, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import { toast } from "sonner";
 
-const RecipeDetailComponent = () => {
+interface RecipeDetailComponentProps {
+  recipe: RecipeData;
+}
+
+const currentLang = 'en';
+
+const mainSettingsRecord: Record<string, string> = {
+  "Black level": "Black Level",
+  "Gamma": "Gamma",
+  "Black Gamma": "Knee",
+  "Knee": "Knee",
+  "Color Mode": "Color Mode",
+  "Saturation": "Saturation",
+  "Color Phase": "Color Phase",
+}
+
+const RecipeDetailComponent = ({ recipe }: RecipeDetailComponentProps) => {
   const game = useMemo(() => {
     return {
       id: 'elden-ring',
@@ -104,7 +121,7 @@ const RecipeDetailComponent = () => {
           <div className="absolute inset-0 bg-transparent">
             <Image
               src={game.headerImage || '/placeholder.svg'}
-              alt={game.title}
+              alt={recipe.name}
               fill
               className="-z-10 object-cover opacity-40"
               priority
@@ -125,10 +142,10 @@ const RecipeDetailComponent = () => {
                 Action RPG
               </Link>
               <ChevronRight className="h-4 w-4" />
-              <span className="text-primary">{game.title}</span>
+              <span className="text-primary">{recipe.name}</span>
             </div>
 
-            <h1 className="text-primary text-4xl font-bold md:text-5xl">{game.title}</h1>
+            <h1 className="text-primary text-4xl font-bold md:text-5xl">{recipe.name}</h1>
           </div>
         </div>
 
@@ -146,7 +163,7 @@ const RecipeDetailComponent = () => {
                         <div className="relative overflow-hidden rounded-lg">
                           <Image
                             src={screenshot || '/placeholder.svg'}
-                            alt={`${game.title} screenshot ${index + 1}`}
+                            alt={`${recipe.name} screenshot ${index + 1}`}
                             width={1200}
                             height={600}
                             className="aspect-video w-full object-cover"
@@ -180,27 +197,13 @@ const RecipeDetailComponent = () => {
 
               {/* Game description */}
               <div className="mb-8">
-                <h2 className="text-primary mb-4 font-bold">About This Game</h2>
-                <p className="text-secondary-foreground mb-4">{game.description}</p>
-                <p className="text-secondary-foreground">{game.longDescription}</p>
-              </div>
-
-              {/* Game features */}
-              <div className="mb-8">
-                <h2 className="text-primary mb-4 text-xl font-bold">Game Features</h2>
-                <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-                  {game.features.map((feature, index) => (
-                    <div key={index} className="flex items-center gap-2">
-                      <ThumbsUp className="text-muted-foreground h-4 w-4" />
-                      <span>{feature}</span>
-                    </div>
-                  ))}
-                </div>
+                <h2 className="text-primary mb-4 font-bold">About this recipe</h2>
+                <p className="text-secondary-foreground mb-4">{recipe.description[currentLang]}</p>
               </div>
 
               {/* Reviews section */}
               <div className="mb-8">
-                <h2 className="mb-4 text-xl font-bold">Player Reviews</h2>
+                <h2 className="mb-4 text-xl font-bold">Recipe Reviews</h2>
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div className="bg-card/75 rounded-lg p-4">
                     <h3 className="mb-2 font-semibold">All Reviews</h3>
@@ -235,112 +238,44 @@ const RecipeDetailComponent = () => {
 
               {/* System requirements */}
               <div>
-                <h2 className="mb-4 text-xl font-bold">System Requirements</h2>
-                <Tabs defaultValue="minimum" className="w-full">
+                <h2 className="mb-4 text-xl font-bold">Color Recipes</h2>
+                <Tabs defaultValue="main" className="w-full">
                   <TabsList className="bg-card mb-4 grid w-full grid-cols-2">
-                    <TabsTrigger className="cursor-pointer" value="minimum">
-                      Minimum
+                    <TabsTrigger className="cursor-pointer" value="main">
+                      Main Settings
                     </TabsTrigger>
-                    <TabsTrigger className="cursor-pointer" value="recommended">
+                    <TabsTrigger className="cursor-pointer" value="color-depth">
                       Recommended
                     </TabsTrigger>
                   </TabsList>
-                  <TabsContent value="minimum" className="mt-0">
-                    <div className="bg-card space-y-4 rounded-lg p-4">
-                      <div className="flex items-start gap-3">
-                        <Monitor className="text-secondary mt-0.5 h-5 w-5 shrink-0" />
-                        <div>
-                          <div className="font-medium">OS</div>
-                          <div className="text-secondary-foreground">
-                            {game.systemRequirements.minimum.os}
+                  <TabsContent value="main" className="mt-0">
+                    <div className="grid grid-cols-3 bg-card space-y-4 rounded-lg p-2">
+                      {
+                        (Object.keys(recipe.colorDepth) as Array<keyof RecipeData['colorDepth']>).map((item, index) =>
+                          <div key={index} className="flex justify-center items-center gap-3 py-2">
+                            <Memory className="text-secondary my-0.5 h-6 w-6 shrink-0" />
+                            <div>
+                              <span className="font-medium">{item}</span>
+                              <span className="text-secondary-foreground"> {recipe.colorDepth[item]} </span>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <Cpu className="text-secondary mt-0.5 h-5 w-5 shrink-0" />
-                        <div>
-                          <div className="font-medium">Processor</div>
-                          <div className="text-secondary-foreground">
-                            {game.systemRequirements.minimum.processor}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <Memory className="text-secondary mt-0.5 h-5 w-5 shrink-0" />
-                        <div>
-                          <div className="font-medium">Memory</div>
-                          <div className="text-secondary-foreground">
-                            {game.systemRequirements.minimum.memory}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <Monitor className="text-secondary mt-0.5 h-5 w-5 shrink-0" />
-                        <div>
-                          <div className="font-medium">Graphics</div>
-                          <div className="text-secondary-foreground">
-                            {game.systemRequirements.minimum.graphics}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <HardDrive className="text-secondary mt-0.5 h-5 w-5 shrink-0" />
-                        <div>
-                          <div className="font-medium">Storage</div>
-                          <div className="text-secondary-foreground">
-                            {game.systemRequirements.minimum.storage}
-                          </div>
-                        </div>
-                      </div>
+                        )
+                      }
                     </div>
                   </TabsContent>
-                  <TabsContent value="recommended" className="mt-0">
-                    <div className="space-y-4 rounded-lg bg-zinc-800 p-4">
-                      <div className="flex items-start gap-3">
-                        <Monitor className="mt-0.5 h-5 w-5 shrink-0 text-zinc-400" />
-                        <div>
-                          <div className="font-medium">OS</div>
-                          <div className="text-zinc-400">
-                            {game.systemRequirements.recommended.os}
+                  <TabsContent value="color-depth" className="mt-0">
+                    <div className="grid grid-cols-3 bg-card space-y-4 rounded-lg p-2 pl-16">
+                      {
+                        (Object.keys(recipe.settings) as Array<keyof RecipeData['settings']>).map((item, index) =>
+                          <div key={index} className="flex items-center gap-3 py-2">
+                            <Memory className="text-secondary my-0.5 h-6 w-6 shrink-0" />
+                            <div>
+                              <span className="font-medium">{mainSettingsRecord[item]}</span>
+                              <span className="text-secondary-foreground"> {recipe.settings[item]} </span>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <Cpu className="mt-0.5 h-5 w-5 shrink-0 text-zinc-400" />
-                        <div>
-                          <div className="font-medium">Processor</div>
-                          <div className="text-zinc-400">
-                            {game.systemRequirements.recommended.processor}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <Memory className="mt-0.5 h-5 w-5 shrink-0 text-zinc-400" />
-                        <div>
-                          <div className="font-medium">Memory</div>
-                          <div className="text-zinc-400">
-                            {game.systemRequirements.recommended.memory}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <Monitor className="mt-0.5 h-5 w-5 shrink-0 text-zinc-400" />
-                        <div>
-                          <div className="font-medium">Graphics</div>
-                          <div className="text-zinc-400">
-                            {game.systemRequirements.recommended.graphics}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <HardDrive className="mt-0.5 h-5 w-5 shrink-0 text-zinc-400" />
-                        <div>
-                          <div className="font-medium">Storage</div>
-                          <div className="text-zinc-400">
-                            {game.systemRequirements.recommended.storage}
-                          </div>
-                        </div>
-                      </div>
+                        )
+                      }
                     </div>
                   </TabsContent>
                 </Tabs>
@@ -353,7 +288,7 @@ const RecipeDetailComponent = () => {
               <div className="mb-6">
                 <Image
                   src={game.screenshots[0] || '/placeholder.svg'}
-                  alt={game.title}
+                  alt={recipe.name}
                   width={600}
                   height={300}
                   className="w-full rounded-lg"
@@ -362,7 +297,7 @@ const RecipeDetailComponent = () => {
 
               {/* Purchase card */}
               <div className="bg-card mb-6 rounded-lg p-6">
-                <h2 className="mb-4 text-xl font-bold">Buy {game.title}</h2>
+                <h2 className="mb-4 text-xl font-bold">Buy {recipe.name}</h2>
 
                 {game.discount > 0 ? (
                   <div className="mb-4 flex items-center gap-3">
@@ -445,9 +380,9 @@ const RecipeDetailComponent = () => {
             </div>
           </div>
         </div>
-      </AnimatedGroup>
+      </AnimatedGroup >
     </>
   )
 }
 
-export default RecipeDetailComponent;
+export default memo(RecipeDetailComponent);
