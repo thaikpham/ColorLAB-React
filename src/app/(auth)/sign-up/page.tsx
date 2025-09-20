@@ -1,6 +1,8 @@
+import SignUpComponent from "@/components/sign-up";
+
 const SignUpPage = () => {
   return (
-    <div className="bg-transparent"></div>
+    <SignUpComponent />
   )
 }
 

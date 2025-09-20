@@ -4,15 +4,15 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import LoginButton from './login-button'
-import { memo } from 'react'
+import { loginAction } from '../action'
 
 const LoginComponent = () => {
   return (
     <section className="flex min-h-screen bg-transparent px-4 py-16 md:py-32 dark:bg-transparent">
       <form
-        action=""
+        action={loginAction as any}
         className="bg-transparent m-auto h-fit w-full max-w-sm overflow-hidden rounded-[calc(var(--radius)+.125rem)] border shadow-md shadow-shadow-color dark:[--color-muted:var(--color-zinc-900)]">
-        <div className="bg-card/20 -m-px rounded-[calc(var(--radius)+.125rem)] border p-8 pb-6">
+        <div className="bg-card/30 -m-px rounded-[calc(var(--radius)+.125rem)] border p-8 pb-6">
           <div className="text-center">
             <Link
               href="/"
@@ -67,7 +67,7 @@ const LoginComponent = () => {
               />
             </div>
 
-            <Button className="w-full">Sign In</Button>
+            <Button className="w-full" type="submit">Sign In</Button>
           </div>
 
           <div className="my-6 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
@@ -130,12 +130,12 @@ const LoginComponent = () => {
 
         <div className="p-3">
           <p className="text-accent-foreground text-center text-sm">
-            Don't have an account ?
+            {`Don't have an account ?`}
             <Button
               asChild
               variant="link"
               className="px-2">
-              <Link href="#">Create account</Link>
+              <Link href="/sign-up">Create account</Link>
             </Button>
           </p>
         </div>
@@ -144,4 +144,4 @@ const LoginComponent = () => {
   )
 }
 
-export default memo(LoginComponent)
+export default LoginComponent;

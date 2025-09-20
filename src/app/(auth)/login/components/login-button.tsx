@@ -20,7 +20,7 @@ const LoginButton = ({ children, type, variant, client }: LoginButtonProps) => {
   // handle user click event
   const handleClick = useCallback(() => {
     console.log('navigated to: ', resolverRecord[client])
-  }, [])
+  }, [client])
 
   return (
     <Button

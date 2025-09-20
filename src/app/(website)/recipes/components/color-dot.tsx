@@ -1,12 +1,13 @@
+"use client"
 import { useSelectedRecipeStore } from "@/store/selectedRecipeStore";
-import { RecipeData } from "@/type/recipe.type";
+import { RecipeDot } from "@/type/recipe.type";
 import { useRouter } from "next/navigation";
-import { useCallback } from "react";
+import { memo, useCallback } from "react";
 
 interface ColorDotProps {
-  hoveredPreset: RecipeData | null;
-  preset: RecipeData;
-  handleNodeHover: (preset: RecipeData | null) => void;
+  hoveredPreset: RecipeDot | null;
+  preset: RecipeDot;
+  handleNodeHover: (preset: RecipeDot | null) => void;
 }
 
 const ColorDot = ({ preset, hoveredPreset, handleNodeHover }: ColorDotProps) => {
@@ -31,7 +32,7 @@ const ColorDot = ({ preset, hoveredPreset, handleNodeHover }: ColorDotProps) => 
       onMouseLeave={() => handleNodeHover(null)}
     >
       <circle
-        r={preset.radius || 10}
+        r={10}
         fill={preset.personalityColor}
         filter="url(#soft-glow)"
         opacity={hoveredPreset?.id === preset.id ? 0.6 : 0.2}
@@ -39,7 +40,7 @@ const ColorDot = ({ preset, hoveredPreset, handleNodeHover }: ColorDotProps) => 
       />
 
       <circle
-        r={preset.radius || 10}
+        r={10}
         fill={preset.personalityColor}
         // stroke={preset?.id === preset.id ? '#000000' : 'transparent'}
         strokeWidth="1"
@@ -61,4 +62,4 @@ const ColorDot = ({ preset, hoveredPreset, handleNodeHover }: ColorDotProps) => 
   )
 }
 
-export default ColorDot;
+export default memo(ColorDot);

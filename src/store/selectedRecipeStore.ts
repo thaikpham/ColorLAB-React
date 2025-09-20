@@ -1,13 +1,13 @@
 // stores/counterStore.ts
-import { RecipeData } from '@/type/recipe.type'
+import { RecipeDot } from '@/type/recipe.type'
 import { create } from 'zustand'
 
 interface SelectedRecipeState {
-  selectedRecipe: RecipeData | null;
-  setSelectedRecipe: (recipe: RecipeData) => void;
+  selectedRecipe: RecipeDot | null;
+  setSelectedRecipe: (recipe: RecipeDot) => void;
 }
 
 export const useSelectedRecipeStore = create<SelectedRecipeState>((set) => ({
   selectedRecipe: null,
-  setSelectedRecipe: (recipe: RecipeData) => set({ selectedRecipe: recipe })
+  setSelectedRecipe: (recipe: RecipeDot) => set({ selectedRecipe: recipe })
 }))
