@@ -1,10 +1,11 @@
 "use server"
 
-import client from "@/app/(website)/api/client";
+import { createClient } from "@/lib/supabase/server";
 import { RecipeData } from "@/type/recipe.type"
 
 export const getRecipeById = async (id: string): Promise<RecipeData | null> => {
-  const recipes: RecipeData[] | null = (await client.from('recipes').select(`*`).eq('id', id)).data;
-  if (!recipes) return null;
-  return recipes[0];
+  const client = await createClient();
+  const { data } = await client.from('recipes').select(`*`).eq('id', id);
+  if (!data) return null;
+  return data[0];
 }

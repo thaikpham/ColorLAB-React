@@ -2,16 +2,17 @@
 import Link from 'next/link';
 import { Logo } from '@/components/logo';
 import { Menu, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { useScroll } from 'motion/react';
+import LoginSection from './login-section';
 
 const menuItems = [{ name: 'Recipes', href: '/recipes' }];
 
 export const HeroHeader = () => {
   const [menuState, setMenuState] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
+
 
   const { scrollYProgress } = useScroll();
 
@@ -78,18 +79,7 @@ export const HeroHeader = () => {
                   ))}
                 </ul>
               </div>
-              <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
-                <Button asChild variant="outline" size="sm">
-                  <Link href="/login" className="text-primary">
-                    <span>Login</span>
-                  </Link>
-                </Button>
-                <Button asChild size="sm">
-                  <Link href="/sign-up" className="text-muted-foreground">
-                    <span>Sign Up</span>
-                  </Link>
-                </Button>
-              </div>
+              <LoginSection />
             </div>
           </div>
         </div>

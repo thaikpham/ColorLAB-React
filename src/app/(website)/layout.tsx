@@ -7,6 +7,7 @@ import { Toaster } from 'sonner';
 import { ContextMenu, ContextMenuTrigger } from '@/components/ui/context-menu';
 import { ThemeProvider } from '@/components/theme-provider';
 import ThemeSwitcher from '@/components/theme-switcher';
+import MenuButton from '@/components/ui/menu-button';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -34,6 +35,7 @@ export default async function RootLayout({
                 </main>
                 <Toaster />
                 <ThemeSwitcher />
+                <MenuButton />
               </div>
             </ContextMenuTrigger>
             {/* <ContextMenuContent className='lg:w-xs'> */}

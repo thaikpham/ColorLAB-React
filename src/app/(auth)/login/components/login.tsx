@@ -1,26 +1,29 @@
-import { LogoIcon } from '@/components/logo'
+"use client"
+import { Logo } from '@/components/logo'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import LoginButton from './login-button'
+import { useActionState } from 'react'
 import { loginAction } from '../action'
 
 const LoginComponent = () => {
+  const [state, formAction, pending] = useActionState(loginAction, '')
   return (
     <section className="flex min-h-screen bg-transparent px-4 py-16 md:py-32 dark:bg-transparent">
       <form
-        action={loginAction as any}
-        className="bg-transparent m-auto h-fit w-full max-w-sm overflow-hidden rounded-[calc(var(--radius)+.125rem)] border shadow-md shadow-shadow-color dark:[--color-muted:var(--color-zinc-900)]">
+        action={formAction}
+        className="bg-transparent m-auto h-fit w-full max-w-sm overflow-hidden rounded-[calc(var(--radius)+.125rem)] dark:border shadow-md shadow-shadow-color dark:[--color-muted:var(--color-zinc-900)]">
         <div className="bg-card/30 -m-px rounded-[calc(var(--radius)+.125rem)] border p-8 pb-6">
           <div className="text-center">
             <Link
               href="/"
               aria-label="go home"
               className="mx-auto block w-fit">
-              <LogoIcon />
+              <Logo />
             </Link>
-            <h1 className="mb-1 mt-4 text-xl font-semibold">Sign In to Tailark</h1>
+            <h1 className="mb-1 mt-4 text-xl font-semibold">Sign In to Sony Color Lab</h1>
             <p className="text-sm">Welcome back! Sign in to continue</p>
           </div>
 
@@ -50,7 +53,9 @@ const LoginComponent = () => {
                 <Button
                   asChild
                   variant="link"
-                  size="sm">
+                  size="sm"
+                  disabled={pending}
+                >
                   <Link
                     href="/sign-up"
                     className="link intent-info variant-ghost text-sm">
@@ -65,9 +70,10 @@ const LoginComponent = () => {
                 id="pwd"
                 className='border-border/50 border-1'
               />
+              {/* error state */}
+              <Label className='my-4 text-destructive'>{state}</Label>
             </div>
-
-            <Button className="w-full" type="submit">Sign In</Button>
+            <Button className="w-full" type="submit" disabled={pending}>Sign In</Button>
           </div>
 
           <div className="my-6 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
@@ -80,7 +86,9 @@ const LoginComponent = () => {
             <LoginButton
               client="google"
               type="button"
-              variant="outline">
+              variant="outline"
+              disabled={pending}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="0.98em"
@@ -104,7 +112,9 @@ const LoginComponent = () => {
             <LoginButton
               client='microsoft'
               type="button"
-              variant="outline">
+              variant="outline"
+              disabled={pending}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="1em"
@@ -134,7 +144,9 @@ const LoginComponent = () => {
             <Button
               asChild
               variant="link"
-              className="px-2">
+              className="px-2"
+              disabled={pending}
+            >
               <Link href="/sign-up">Create account</Link>
             </Button>
           </p>

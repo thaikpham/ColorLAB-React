@@ -8,6 +8,7 @@ interface LoginButtonProps {
   type: "button" | "submit" | "reset";
   variant: "outline" | "default" | "link" | "destructive" | "ghost" | "secondary"
   client: "google" | "microsoft"
+  disabled?: boolean
 }
 
 const resolverRecord: Record<string, string> = {
@@ -15,7 +16,7 @@ const resolverRecord: Record<string, string> = {
   microsoft: "https://microsoft.com"
 }
 
-const LoginButton = ({ children, type, variant, client }: LoginButtonProps) => {
+const LoginButton = ({ children, type, variant, client, disabled = false }: LoginButtonProps) => {
 
   // handle user click event
   const handleClick = useCallback(() => {
@@ -28,6 +29,7 @@ const LoginButton = ({ children, type, variant, client }: LoginButtonProps) => {
       variant={variant}
       onClick={handleClick}
       className="cursor-pointer"
+      disabled={disabled}
     >
       {children}
     </Button>

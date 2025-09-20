@@ -1,4 +1,3 @@
-import { RecipeData } from '@/type/recipe.type';
 import Sidebar from './sidebar';
 import RecipeExplorer from './recipe-explorer';
 
