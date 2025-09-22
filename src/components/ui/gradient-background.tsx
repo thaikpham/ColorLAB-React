@@ -1,9 +1,9 @@
 'use client';
-import { useTheme } from 'next-themes';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from 'next-themes';
 
 const GradientBackground = () => {
-  const { resolvedTheme } = useTheme();
+  const { resolvedTheme: theme } = useTheme();
 
   const animationProps = {
     initial: { opacity: 0 },
@@ -12,9 +12,9 @@ const GradientBackground = () => {
     transition: { duration: 0.5 },
   };
 
-  if (!resolvedTheme) return;
+  if (!theme) return <></>;
 
-  if (resolvedTheme === 'dark') {
+  if (theme === 'dark') {
     return <AnimatePresence>
       <motion.div
         key="dark"

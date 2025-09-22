@@ -4,16 +4,16 @@ import Image from 'next/image';
 import React, { useCallback, useEffect, useState } from 'react';
 
 const ThemeSwitcher = () => {
-  const { resolvedTheme, setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false)
-  const [isChecked, setIsChecked] = useState(resolvedTheme === 'dark');
+  const [isChecked, setIsChecked] = useState(theme === 'dark');
 
   useEffect(() => setMounted(true), [])
 
   const handleToggle = useCallback(() => {
     setIsChecked((prev) => !prev);
-    setTheme(isChecked ? 'light' : 'dark');
-  }, [setTheme, isChecked]);
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  }, [theme]);
 
   if (!mounted) return (
     <Image
@@ -31,7 +31,7 @@ const ThemeSwitcher = () => {
     <div className="fixed top-10 right-10 hidden lg:block ">
       <style>{`
         .bb8-toggle {
-          --toggle-size: 8px;
+          --toggle-size: 6px;
           --toggle-width: 10.625em;
           --toggle-height: 5.625em;
           --toggle-offset: calc((var(--toggle-height) - var(--bb8-diameter)) / 2);

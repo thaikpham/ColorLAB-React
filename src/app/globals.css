@@ -188,3 +188,26 @@
     letter-spacing: var(--tracking-normal);
   }
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--transparent);
+}
+
+ .dark ::-webkit-scrollbar-track { 
+   background: var(--transparent); 
+ } 
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 9px;
+  visibility:hidden;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}

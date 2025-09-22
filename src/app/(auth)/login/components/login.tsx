@@ -58,7 +58,8 @@ const LoginComponent = () => {
                 >
                   <Link
                     href="/sign-up"
-                    className="link intent-info variant-ghost text-sm">
+                    tabIndex={-1}
+                    className="link intent-info variant-ghost text-sm z">
                     Forgot your Password ?
                   </Link>
                 </Button>
@@ -147,12 +148,12 @@ const LoginComponent = () => {
               className="px-2"
               disabled={pending}
             >
-              <Link href="/sign-up">Create account</Link>
+              <Link tabIndex={-1} href="/sign-up">Create account</Link>
             </Button>
           </p>
         </div>
       </form>
-    </section>
+    </section >
   )
 }
 

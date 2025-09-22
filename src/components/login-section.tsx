@@ -9,16 +9,17 @@ import { CurrentUserAvatar } from "./current-user-avatar";
 const LoginSection = () => {
   const { user, isFetch } = useCurrentUser();
   if (!isFetch) return <></>;
+
   if (user) {
     return (
-      <DropdownMenu>
-        <DropdownMenuTrigger className="outline:none cursor-pointer">
+      <DropdownMenu modal={false}>
+        <DropdownMenuTrigger className="outline-0 cursor-pointer select-none">
           <CurrentUserAvatar />
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="end"
           sideOffset={8}
-          className="w-[280px] sm:w-80 bg-transparent border-0"
+          className="w-[280px] sm:w-80 bg-transparent border-0 backdrop-blur-2xl"
         >
           <ProfilePopup
             name={user.name}

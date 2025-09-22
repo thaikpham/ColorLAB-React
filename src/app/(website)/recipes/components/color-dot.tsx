@@ -11,7 +11,8 @@ interface ColorDotProps {
 }
 
 const ColorDot = ({ preset, hoveredPreset, handleNodeHover }: ColorDotProps) => {
-  const { setSelectedRecipe, selectedRecipe } = useSelectedRecipeStore();
+  const setSelectedRecipe = useSelectedRecipeStore(s => s.setSelectedRecipe);
+  const selectedRecipe = useSelectedRecipeStore(s => s.selectedRecipe);
   const { push } = useRouter();
 
   const handleNodeClick = useCallback(

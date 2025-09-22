@@ -41,7 +41,7 @@ export default function ProfilePopup({
   ]
 
   return (
-    <Card className="relative overflow-hidden rounded-2xl bg-card/20 ">
+    <Card className="relative overflow-hidden rounded-2xl bg-card/20">
       <div className="relative px-6 py-3">
         <div className="flex items-center gap-4 mb-8">
           <div className="relative shrink-0 w-20 aspect-square">

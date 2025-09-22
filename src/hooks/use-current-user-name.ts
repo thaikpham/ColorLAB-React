@@ -3,7 +3,8 @@ import { useUserStore } from '@/store/user-store';
 import { useLayoutEffect, useState } from 'react'
 
 export const useCurrentUser = () => {
-  const { user, setUser } = useUserStore();
+  const user = useUserStore(s => s.user)
+  const setUser = useUserStore(s => s.setUser);
   const [isFetch, setFetch] = useState(false);
 
   useLayoutEffect(() => {

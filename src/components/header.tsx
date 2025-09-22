@@ -4,24 +4,13 @@ import { Logo } from '@/components/logo';
 import { Menu, X } from 'lucide-react';
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { useScroll } from 'motion/react';
 import LoginSection from './login-section';
 
 const menuItems = [{ name: 'Recipes', href: '/recipes' }];
 
 export const HeroHeader = () => {
+
   const [menuState, setMenuState] = React.useState(false);
-  const [scrolled, setScrolled] = React.useState(false);
-
-
-  const { scrollYProgress } = useScroll();
-
-  React.useEffect(() => {
-    const unsubscribe = scrollYProgress.on('change', (latest) => {
-      setScrolled(latest > 0.05);
-    });
-    return () => unsubscribe();
-  }, [scrollYProgress]);
 
   return (
     <header>
@@ -29,7 +18,7 @@ export const HeroHeader = () => {
         data-state={menuState && 'active'}
         className={cn(
           'z-20 w-full border-b transition-colors duration-150',
-          scrolled && 'bg-transparent backdrop-blur-3xl',
+          // scrolled && 'bg-transparent backdrop-blur-3xl',
         )}
       >
         <div className="mx-auto max-w-5xl px-6 transition-all duration-300">

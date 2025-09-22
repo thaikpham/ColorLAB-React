@@ -8,7 +8,6 @@ interface ColorChartProps {
   recipes: RecipeDot[]
 }
 const ColorChart = ({ recipes }: ColorChartProps) => {
-  console.log('recipes', recipes)
   const [hoveredPreset, setHoveredPreset] = useState<RecipeDot | null>(null);
 
   const handleNodeHover = useCallback((preset: RecipeDot | null) => {
@@ -19,7 +18,6 @@ const ColorChart = ({ recipes }: ColorChartProps) => {
     <svg viewBox="0 0 896 626" className="mx-auto h-auto w-full max-w-5xl">
       <g transform="translate(30,40)">
         <rect x="0" y="0" width="836" height="536" fill="none" rx="8" />
-
         <defs>
           <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
             <path d="M 40 0 L 0 0 0 40" fill="none" className='stroke-primary/35 dark:stroke-primary/0' strokeWidth="1" />
@@ -39,11 +37,11 @@ const ColorChart = ({ recipes }: ColorChartProps) => {
 
         <rect x="0" y="0" width="836" height="536" fill="url(#grid)" />
 
-        <text className="fill-primary text-sm font-medium" x="418" y="20" textAnchor="middle">
+        <text className="fill-primary text-sm font-medium select-none" x="418" y="20" textAnchor="middle">
           ↑ PUNCHY CONTRAST
         </text>
         <text
-          className="fill-primary text-sm font-medium"
+          className="fill-primary text-sm font-medium select-none"
           x="418"
           y="525"
           textAnchor="middle"
@@ -51,7 +49,7 @@ const ColorChart = ({ recipes }: ColorChartProps) => {
           ↓ SOFT CONTRAST
         </text>
         <text
-          className="fill-primary text-sm font-medium"
+          className="fill-primary text-sm font-medium select-none"
           x="20"
           y="270"
           textAnchor="middle"
@@ -60,7 +58,7 @@ const ColorChart = ({ recipes }: ColorChartProps) => {
           ← COOL
         </text>
         <text
-          className="fill-primary text-sm font-medium"
+          className="fill-primary text-sm font-medium select-none"
           x="816"
           y="270"
           textAnchor="middle"

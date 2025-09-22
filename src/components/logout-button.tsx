@@ -5,7 +5,7 @@ import { LogOut } from "lucide-react";
 import { useActionState, useCallback } from "react";
 
 const LogoutButton = () => {
-  const { clearUser } = useUserStore();
+  const clearUser = useUserStore(s => s.clearUser);
   const [_, action, pending] = useActionState(logoutAction, null)
 
   const handleLogout = useCallback(() => {
