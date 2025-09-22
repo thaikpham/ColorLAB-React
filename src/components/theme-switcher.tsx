@@ -13,7 +13,7 @@ const ThemeSwitcher = () => {
   const handleToggle = useCallback(() => {
     setIsChecked((prev) => !prev);
     setTheme(theme === 'dark' ? 'light' : 'dark');
-  }, [theme]);
+  }, [theme, setIsChecked, setTheme]);
 
   if (!mounted) return (
     <Image

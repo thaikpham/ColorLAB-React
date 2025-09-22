@@ -6,12 +6,12 @@ import { useActionState, useCallback } from "react";
 
 const LogoutButton = () => {
   const clearUser = useUserStore(s => s.clearUser);
-  const [_, action, pending] = useActionState(logoutAction, null)
+  const [_, action, pending] = useActionState(logoutAction, '')
 
   const handleLogout = useCallback(() => {
     clearUser();
     action();
-  }, [action])
+  }, [action, clearUser])
 
   return (
     <button

@@ -33,6 +33,10 @@ interface Recipe {
   image?: string;
 }
 
+
+// Alternative way to define the same interface
+// type QuizAnswersType = Record<string, AnswerValue>;
+
 const mockQuestions: QuizQuestion[] = [
   {
     id: '1',
@@ -130,7 +134,7 @@ const QuizPopup: React.FC = () => {
   const isOpen = useQuizPopupStore(s => s.isOpen);
   const setOpen = useQuizPopupStore(s => s.setOpen);
   const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, any>>({});
+  const [answers, setAnswers] = useState<Record<string, QuizOption | string>>({});
   const [aiPrompt, setAiPrompt] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showResult, setShowResult] = useState(false);
@@ -141,7 +145,7 @@ const QuizPopup: React.FC = () => {
 
   const handleClose = useCallback(() => {
     setOpen(false);
-  }, [])
+  }, [setOpen])
 
   useEffect(() => {
     if (isOpen) {
@@ -152,9 +156,22 @@ const QuizPopup: React.FC = () => {
       setShowResult(false);
       setSelectedOptions(new Set());
     }
-  }, [isOpen]);
+  }, [isOpen, setCurrentStep, setAnswers, setAiPrompt, setShowResult, setSelectedOptions]);
 
-  const handleOptionSelect = (questionId: string, option: QuizOption) => {
+  const isQuizOption = useCallback((answer: QuizOption | string): answer is QuizOption => {
+    return typeof answer === 'object' && answer !== null && 'id' in answer;
+  }, [])
+
+  const handleSubmitQuiz = useCallback(async () => {
+    setIsLoading(true);
+
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    setIsLoading(false);
+    setShowResult(true);
+  }, [setIsLoading, setShowResult]);
+  const handleOptionSelect = useCallback((questionId: string, option: QuizOption) => {
     const newAnswers = { ...answers };
     newAnswers[questionId] = option;
     setAnswers(newAnswers);
@@ -167,29 +184,20 @@ const QuizPopup: React.FC = () => {
         handleSubmitQuiz();
       }
     }, 300);
-  };
+  }, [answers, setAnswers, setCurrentStep, handleSubmitQuiz, currentStep]);
 
-  const handleAIPromptSubmit = () => {
+  const handleAIPromptSubmit = useCallback(() => {
     const newAnswers = { ...answers };
     newAnswers[mockQuestions[currentStep].id] = aiPrompt;
     setAnswers(newAnswers);
     handleSubmitQuiz();
-  };
+  }, [handleSubmitQuiz, setAnswers, aiPrompt, answers, currentStep]);
 
-  const handleSubmitQuiz = async () => {
-    setIsLoading(true);
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-
-    setIsLoading(false);
-    setShowResult(true);
-  };
-
-  const currentQuestion = mockQuestions[currentStep];
+  const currentQuestion = useMemo(() => mockQuestions[currentStep], [currentStep]);
   const progress = useMemo(() => {
     return (currentStep / mockQuestions.length) * 100
-  }, [currentStep, mockQuestions]);
+  }, [currentStep]);
 
   if (!isOpen) return null;
 
@@ -242,23 +250,28 @@ const QuizPopup: React.FC = () => {
 
           {currentQuestion?.type === 'multiple_choice' && currentQuestion.options && (
             <div className="space-y-3">
-              {currentQuestion.options.map((option, index) => (
-                <button
-                  key={option.id}
-                  onClick={() => handleOptionSelect(currentQuestion.id, option)}
-                  className={`w-full rounded-xl hover:shadow-glow transition-smooth group animate-slide-up ${answers[currentQuestion.id]?.id === option.id ? 'bg-primary/75' : 'bg-muted/30'} hover:bg-primary/75 transition-all duration-300 py-2 outline-0`}
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <div className="flex items-center gap-4 text-left px-4">
-                    <div className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center text-white group-hover:shadow-glow transition-smooth">
-                      {option.icon}
+              {currentQuestion.options.map((option, index) => {
+                return (
+                  <button
+                    key={option.id}
+                    onClick={() => handleOptionSelect(currentQuestion.id, option)}
+                    className={`w-full rounded-xl hover:shadow-glow transition-smooth group animate-slide-up  ${answers[currentQuestion.id] && isQuizOption(answers[currentQuestion.id]) && (answers[currentQuestion.id] as QuizOption).id === option.id ? 'bg-primary/75' : 'bg-muted/30'
+                      } hover:bg-primary/75 transition-all duration-300 py-2 outline-0`}
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    <div className="flex items-center gap-4 text-left px-4">
+                      <div className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center text-white group-hover:shadow-glow transition-smooth">
+                        {option.icon}
+                      </div>
+                      <span className="font-medium text-lg">{option.text}</span>
                     </div>
-                    <span className="font-medium text-lg">{option.text}</span>
-                  </div>
-                </button>
-              ))}
+                  </button>
+                )
+              }
+              )}
             </div>
-          )}
+          )
+          }
 
           {currentQuestion?.type === 'ai_prompt' && (
             <div className="space-y-4">

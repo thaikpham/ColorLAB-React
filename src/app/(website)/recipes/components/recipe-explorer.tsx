@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Award, ChevronDown, Clock, Flame, Gamepad2, Percent, Sparkles, Tag, Trophy, Zap, ZapIcon } from 'lucide-react'
+import { Clock, Flame, Gamepad2, Percent, Sparkles, Tag, ZapIcon } from 'lucide-react'
 import Image from 'next/image';
 import React from 'react'
 

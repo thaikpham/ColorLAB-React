@@ -9,11 +9,11 @@ const MenuButton = () => {
   const setOpen = useQuizPopupStore(s => s.setOpen);
   const handleClick = useCallback(() => {
     setClicked(prev => !prev);
-  }, [])
+  }, [setClicked])
   const handleQuizClick = useCallback(() => {
     console.log('quiz click')
     setOpen(true)
-  }, [])
+  }, [setOpen])
   return (
     <div onClick={handleClick} className={`fixed bottom-10 right-10 bg-primary/10 border-border border-1 shadow-[0_0_10px_10px] shadow-primary/20 backdrop-blur-2xl rounded-2xl ${isClicked && 'scale-125'} ease-in-out transition-all duration-300 z-20 cursor-pointer`}>
       <div className="relative w-10 h-10 m-4">
