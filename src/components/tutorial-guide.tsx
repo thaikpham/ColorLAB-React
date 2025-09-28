@@ -1,22 +1,35 @@
-import { useState } from "react";
+'use client'
+import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Eye, EyeOff } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface TutorialStep {
   title: string;
   description: string;
 }
 
+interface CameraModel {
+  id: string;
+  name: string;
+}
+
 interface TutorialGuideProps {
-  title: string;
-  subtitle: string;
-  steps: TutorialStep[];
   className?: string;
 }
 
-export function TutorialGuide({ title, subtitle, steps, className = "" }: TutorialGuideProps) {
+export function TutorialGuide({ className = "" }: TutorialGuideProps) {
   const [isVisible, setIsVisible] = useState(true);
+  const t = useTranslations('guide');
+  const steps = useMemo(() => t.raw('steps') as Array<TutorialStep>, [])
+
+  const cameraModels: CameraModel[] = useMemo(() => [
+    { id: "alpha7IV", name: "α7 IV" },
+    { id: "alpha7RV", name: "α7R V" },
+    { id: "alpha1", name: "α1" },
+    { id: "zvE1", name: "ZV-E1" }
+  ], []);
 
   if (!isVisible) {
     return (
@@ -40,8 +53,8 @@ export function TutorialGuide({ title, subtitle, steps, className = "" }: Tutori
         {/* Header */}
         <div className="flex items-start justify-between mb-4">
           <div>
-            <h1 className="text-2xl font-bold text-foreground mb-2">{title}</h1>
-            <p className="text-muted-foreground text-sm leading-relaxed">{subtitle}</p>
+            <h1 className="text-2xl font-bold text-foreground mb-2">{t('title')}</h1>
+            <p className="text-muted-foreground text-sm leading-relaxed">{t('description')}</p>
           </div>
           <Button
             variant="ghost"
@@ -57,15 +70,18 @@ export function TutorialGuide({ title, subtitle, steps, className = "" }: Tutori
         {/* Introduction paragraph */}
         <div className="mb-6 p-4 bg-muted/50 rounded-lg border border-tutorial-border">
           <p className="text-foreground leading-relaxed">
-            On new generation Sony Alpha cameras (like{" "}
-            <span className="font-semibold">α7 IV</span>,{" "}
-            <span className="font-semibold">α7R V</span>,{" "}
-            <span className="font-semibold">α1</span>,{" "}
-            <span className="font-semibold">ZV-E1</span>), you can save{" "}
-            <span className="font-bold text-highlight">3 presets on the camera body</span>{" "}
-            (positions 1, 2, 3 on the mode dial) and{" "}
-            <span className="font-bold text-highlight">4 presets on the memory card</span>{" "}
-            (M1, M2, M3, M4).
+            {t('note.part1')} {' '}
+            {cameraModels.map((model, index) => (
+              <span key={model.id}>
+                <span className="font-semibold">{model.name}</span>
+                {index < cameraModels.length - 1 ? ', ' : ''}
+              </span>
+            ))}
+            {t('note.part2')} {' '}
+            <span className="font-bold text-highlight">{t('note.presets.cameraBody')}</span> {' '}
+            {t('note.part3')} {' '}
+            <span className="font-bold text-highlight">{t('note.presets.memoryCard')}</span> {' '}
+            {t('note.part4')}
           </p>
         </div>
 

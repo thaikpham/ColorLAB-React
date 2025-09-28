@@ -28,7 +28,7 @@ const ThemeSwitcher = () => {
   )
 
   return (
-    <div className="fixed top-10 right-10 hidden lg:block ">
+    <div className="fixed top-10 right-10 hidden lg:block z-10 ">
       <style>{`
         .bb8-toggle {
           --toggle-size: 6px;

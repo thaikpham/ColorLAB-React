@@ -1,0 +1,72 @@
+{
+  "home": {
+    "title": "Find Your Signature Style",
+    "description": "Discover and create unique color recipes for your Sony Alpha camera, powered by AI.",
+    "button": {
+      "explore": "Explore",
+      "request": "Request a demo"
+    }
+  },
+  "recipes": {
+    "title": "Choose Your Recipes",
+    "colorMap": {
+      "punchyContrast": "Punchy Contrast",
+      "softContrast": "Soft Contrast",
+      "warm": "Warm",
+      "cool": "Cool"
+    }
+  },
+  "detail": {
+    "about": "About This Recipe",
+    "review": {
+      "title": "Recipe Reviews",
+      "all": "All Reviews",
+      "recent": "Recent Reviews"
+    },
+    "recipe": "Color Recipes",
+    "tag": "Popular Tags",
+    "author": "Author Info",
+    "get": "Get",
+    "cart": "Add To Cart",
+    "wishlist": "Add To Wishlist",
+    "share": "Share",
+    "main": "Main Settings",
+    "recommend": "Recommended"
+  },
+  "guide": {
+    "title": "Save Recipe to Camera",
+    "description": "Using the Camera Setting Memory feature on Alpha cameras with the new menu.",
+    "note": {
+      "part1": "On new generation Sony Alpha cameras (like",
+      "part2": "), you can save",
+      "presets": {
+        "cameraBody": "3 presets on the camera body",
+        "memoryCard": "4 presets on the memory card"
+      },
+      "part3": "(positions 1, 2, 3 on the mode dial) and",
+      "part4": "(M1, M2, M3, M4)."
+    },
+    "steps": [
+      {
+        "title": "Set Up Your Camera with the Recipe",
+        "description": "First, input all the parameters from this recipe into your camera, including White Balance (WB) and all Picture Profile settings."
+      },
+      {
+        "title": "Access the Save Settings Menu",
+        "description": "Press the MENU button, navigate to the Shooting tab (pink) → Shooting Mode → Camera Set. Memory."
+      },
+      {
+        "title": "Choose a Memory Slot",
+        "description": "Select one of the memory slots you want to save to (e.g., 1 or M1) and press the Enter button to confirm. Your settings are now saved!"
+      },
+      {
+        "title": "Recall the Saved Setting",
+        "description": "To use the preset, simply turn the top mode dial to the corresponding number 1, 2, or 3. The camera will instantly apply all your saved settings."
+      }
+    ]
+  },
+  "navbar": {
+    "recipes": "Recipes"
+  },
+  "footer": {}
+}

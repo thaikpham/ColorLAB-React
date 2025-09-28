@@ -1,14 +1,3 @@
-export interface RecipeDot {
-  id: string;
-  name: string;
-  personalityColor: string;
-  coords: {
-    x: number;
-    y: number;
-  };
-  trending?: boolean;
-}
-
 export interface RecipeData {
   id: string;
   name: string;
@@ -61,3 +50,6 @@ export interface RecipeData {
   trending?: boolean;
   radius?: number;
 }
+
+export type RecipeDot = Pick<RecipeData, 'id' | 'name' | 'personalityColor' | 'coords' | 'trending'>
+export type RecipeTableList = Pick<RecipeData, 'id' | 'name' | 'contrast' | 'personalityColor' | 'saturation'>

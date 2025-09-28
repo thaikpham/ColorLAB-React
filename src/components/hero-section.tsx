@@ -1,3 +1,4 @@
+'use server'
 import React from 'react';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
@@ -8,6 +9,7 @@ import { AnimatedGroup } from '@/components/ui/animated-group';
 import { HeroHeader } from './header';
 import ContentSection from './content-1';
 import FAQs from './faqs';
+import { getTranslations } from 'next-intl/server';
 
 const transitionVariants = {
   item: {
@@ -29,7 +31,8 @@ const transitionVariants = {
   },
 } as const;
 
-export default function HeroSection() {
+export default async function HeroSection() {
+  const t = await getTranslations('home');
   return (
     <>
       <HeroHeader />
@@ -44,7 +47,7 @@ export default function HeroSection() {
                 as="h1"
                 className="text-primary mt-8 max-w-2xl text-5xl font-bold text-balance md:text-6xl lg:mt-16"
               >
-                Find Your Signature Style
+                {t('title')}
               </TextEffect>
               <TextEffect
                 per="line"
@@ -54,7 +57,7 @@ export default function HeroSection() {
                 as="p"
                 className="text-muted-foreground mt-8 max-w-2xl text-lg text-pretty"
               >
-                Discover and create unique color recipes for your Sony Alpha camera, powered by AI.
+                {t('description')}
               </TextEffect>
 
               <AnimatedGroup
@@ -77,7 +80,7 @@ export default function HeroSection() {
                 >
                   <Button asChild size="lg" className="rounded-xl px-5 text-base">
                     <Link href="/recipes">
-                      <span className="text-nowrap">Explore</span>
+                      <span className="text-nowrap">{t('button.explore')}</span>
                     </Link>
                   </Button>
                 </div>

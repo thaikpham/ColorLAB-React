@@ -2,15 +2,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { RecipeData, RecipeDot } from "@/type/recipe.type"
 
-export const getRecipes = async (): Promise<RecipeData[] | null> => {
-  const client = await createClient();
-  const { data, error } = await client.from('recipes').select(`*`);
-  if (error) {
-    return null;
-  }
-  return data;
-}
-
 export const getRecipeDots = async (): Promise<RecipeDot[] | null> => {
   const client = await createClient();
   const { data, error } = await client.from('recipes').select(`

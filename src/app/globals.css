@@ -189,25 +189,22 @@
   }
 }
 
+/* For webkit browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+    display: none;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--transparent);
+/* For Firefox */
+html {
+    scrollbar-width: none;
 }
 
- .dark ::-webkit-scrollbar-track { 
-   background: var(--transparent); 
- } 
-
-::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 9px;
-  visibility:hidden;
+/* Alternative approach - hide on body */
+body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--secondary);
+body::-webkit-scrollbar {
+    display: none;             /* Chrome, Safari, Opera */
 }

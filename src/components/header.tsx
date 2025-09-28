@@ -2,15 +2,16 @@
 import Link from 'next/link';
 import { Logo } from '@/components/logo';
 import { Menu, X } from 'lucide-react';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { cn } from '@/lib/utils';
-import LoginSection from './login-section';
+import { useTranslations } from 'next-intl';
 
-const menuItems = [{ name: 'Recipes', href: '/recipes' }];
 
 export const HeroHeader = () => {
 
   const [menuState, setMenuState] = React.useState(false);
+  const t = useTranslations('navbar')
+  const menuItems = useMemo(() => [{ name: t('recipes'), href: '/recipes' }], [t]);
 
   return (
     <header>
@@ -18,7 +19,6 @@ export const HeroHeader = () => {
         data-state={menuState && 'active'}
         className={cn(
           'z-20 w-full border-b transition-colors duration-150',
-          // scrolled && 'bg-transparent backdrop-blur-3xl',
         )}
       >
         <div className="mx-auto max-w-5xl px-6 transition-all duration-300">
@@ -68,7 +68,7 @@ export const HeroHeader = () => {
                   ))}
                 </ul>
               </div>
-              <LoginSection />
+              {/* <LoginSection /> */}
             </div>
           </div>
         </div>

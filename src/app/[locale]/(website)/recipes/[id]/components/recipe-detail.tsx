@@ -1,18 +1,16 @@
-"use client"
 import { CameraRecipeGuide } from "@/components/camera-recipe-guide";
 import { HeroHeader } from "@/components/header";
 import QuizPopup from "@/components/quiz/quiz-pop-up";
 import { AnimatedGroup } from "@/components/ui/animated-group";
-import { Button } from "@/components/ui/button";
 import { Carousel, CarouselContent, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RecipeData } from "@/type/recipe.type";
-import { ChevronRight, MemoryStickIcon as Memory, Heart, ShoppingCart, Share2, Star, Users } from "lucide-react";
+import { MemoryStickIcon as Memory, Star, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { memo, useCallback } from "react";
-import { toast } from "sonner";
+import DetailButton from "./detail-button";
+import { getTranslations } from "next-intl/server";
 
 interface RecipeDetailComponentProps {
   recipe: RecipeData;
@@ -30,13 +28,8 @@ const mainSettingsRecord: Record<string, string> = {
   "Color Phase": "Color Phase",
 }
 
-const RecipeDetailComponent = ({ recipe }: RecipeDetailComponentProps) => {
-  const handleAddToCart = useCallback(() => {
-    toast('Added To Cart', {
-      description: 'Item has been added To Cart',
-    });
-  }, []);
-
+const RecipeDetailComponent = async ({ recipe }: RecipeDetailComponentProps) => {
+  const t = await getTranslations('detail');
   return (
     <>
       <HeroHeader />
@@ -55,18 +48,6 @@ const RecipeDetailComponent = ({ recipe }: RecipeDetailComponentProps) => {
 
           <div className="relative z-10 container mx-auto px-4 pt-24 pb-8">
             <div className="text-muted-foreground mb-4 flex items-center gap-2 text-sm">
-              <Link href="/" className="transition hover:text-white">
-                Store
-              </Link>
-              <ChevronRight className="h-4 w-4" />
-              <Link href="#" className="transition hover:text-white">
-                Games
-              </Link>
-              <ChevronRight className="h-4 w-4" />
-              <Link href="#" className="transition hover:text-white">
-                Action RPG
-              </Link>
-              <ChevronRight className="h-4 w-4" />
               <span className="text-primary">{recipe.name}</span>
             </div>
 
@@ -122,16 +103,16 @@ const RecipeDetailComponent = ({ recipe }: RecipeDetailComponentProps) => {
 
               {/* Game description */}
               <div className="mb-8">
-                <h2 className="text-primary mb-4 font-bold">About this recipe</h2>
+                <h2 className="text-primary mb-4 font-bold">{t('about')}</h2>
                 <p className="text-secondary-foreground mb-4">{recipe.description[currentLang]}</p>
               </div>
 
               {/* Reviews section */}
               <div className="mb-8">
-                <h2 className="mb-4 text-xl font-bold">Recipe Reviews</h2>
+                <h2 className="mb-4 text-xl font-bold">{t('review.title')}</h2>
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div className="bg-muted/25 backdrop-blur-2xl border-1 border-border rounded-lg p-4">
-                    <h3 className="mb-2 font-semibold">All Reviews</h3>
+                    <h3 className="mb-2 font-semibold">{t('review.all')}</h3>
                     <div className="mb-2 flex items-center gap-4">
                       <div className="text-primary text-3xl font-bold">{50}%</div>
                       <div>
@@ -144,7 +125,7 @@ const RecipeDetailComponent = ({ recipe }: RecipeDetailComponentProps) => {
                     <Progress value={50} className="h-2 bg-secondary" />
                   </div>
                   <div className="bg-muted/25 backdrop-blur-2xl border-1 border-border rounded-lg p-4">
-                    <h3 className="mb-2 font-semibold">Recent Reviews</h3>
+                    <h3 className="mb-2 font-semibold">{t('review.recent')}</h3>
                     <div className="mb-2 flex items-center gap-4">
                       <div className="text-primary text-3xl font-bold">
                         100%
@@ -163,14 +144,14 @@ const RecipeDetailComponent = ({ recipe }: RecipeDetailComponentProps) => {
 
               {/* System requirements */}
               <div className="space-y-4">
-                <h2 className="mb-4 text-xl font-bold">Color Recipes</h2>
+                <h2 className="mb-4 text-xl font-bold">{t('recipe')}</h2>
                 <Tabs defaultValue="main" className="w-full">
                   <TabsList className="bg-card/25 backdrop-blur-2xl border-1 border-border mb-4 grid w-full grid-cols-2">
                     <TabsTrigger className="cursor-pointer" value="main">
-                      Main Settings
+                      {t('main')}
                     </TabsTrigger>
                     <TabsTrigger className="cursor-pointer" value="color-depth">
-                      Recommended
+                      {t('recommend')}
                     </TabsTrigger>
                   </TabsList>
                   <TabsContent value="main" className="mt-0">
@@ -223,39 +204,17 @@ const RecipeDetailComponent = ({ recipe }: RecipeDetailComponentProps) => {
 
               {/* Purchase card */}
               <div className="bg-muted/50 backdrop-blur-2xl border-1 border-border mb-6 rounded-lg p-6">
-                <h2 className="mb-4 text-xl font-bold">Get {recipe.name}</h2>
-                {/* {game.discount > 0 ? ( */}
-                {/*   <div className="mb-4 flex items-center gap-3"> */}
-                {/*     <Badge className="bg-background text-primary">-{game.discount}%</Badge> */}
-                {/*     <div className="flex items-center gap-2"> */}
-                {/*       <span className="text-primary line-through">${game.price.toFixed(2)}</span> */}
-                {/*       <span className="text-2xl font-bold"> */}
-                {/*         ${(game.price * (1 - game.discount / 100)).toFixed(2)} */}
-                {/*       </span> */}
-                {/*     </div> */}
-                {/*   </div> */}
-                {/* ) : ( */}
-                {/*   <div className="mb-4 text-2xl font-bold">${game.price.toFixed(2)}</div> */}
-                {/* )} */}
+                <h2 className="mb-4 text-xl font-bold">{t('get')} {recipe.name}</h2>
                 <div className="grid gap-3">
-                  <Button className="bg-muted-foreground w-full" onClick={handleAddToCart}>
-                    <ShoppingCart className="mr-2 h-4 w-4" />
-                    Add to Cart
-                  </Button>
-                  <Button variant="outline" className="bg-secondary/25 backdrop-blur-2xl border-1 border-border w-full">
-                    <Heart className="mr-2 h-4 w-4" />
-                    Add to Wishlist
-                  </Button>
-                  <Button variant="outline" className="bg-secondary/25 backdrop-blur-2xl border-1 border-border w-full">
-                    <Share2 className="mr-2 h-4 w-4" />
-                    Share
-                  </Button>
+                  <DetailButton type={"cart"} variant={"default"} />
+                  <DetailButton type={"wishlist"} />
+                  <DetailButton type={"share"} />
                 </div>
               </div>
 
               {/* Game info card */}
               <div className="bg-muted/25 backdrop-blur-2xl border-1 border-border mb-6 rounded-lg p-6">
-                <h3 className="mb-4 font-semibold">Game Info</h3>
+                <h3 className="mb-4 font-semibold">{t('author')}</h3>
                 <div className="space-y-3 text-sm">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Developer:</span>
@@ -294,11 +253,6 @@ const RecipeDetailComponent = ({ recipe }: RecipeDetailComponentProps) => {
               <div className="bg-muted/25 backdrop-blur-2xl border-1 border-border rounded-lg p-6">
                 <h3 className="mb-4 font-semibold">Popular Tags</h3>
                 <div className="flex flex-wrap gap-2">
-                  {/* {game.tags.map((tag, index) => ( */}
-                  {/*   <Badge key={index} variant="outline" className="border-border cursor-pointer"> */}
-                  {/*     {tag} */}
-                  {/*   </Badge> */}
-                  {/* ))} */}
                 </div>
               </div>
             </div>
@@ -310,4 +264,4 @@ const RecipeDetailComponent = ({ recipe }: RecipeDetailComponentProps) => {
   )
 }
 
-export default memo(RecipeDetailComponent);
+export default RecipeDetailComponent;

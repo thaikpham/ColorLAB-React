@@ -5,6 +5,9 @@ import GradientBackground from '@/components/ui/gradient-background';
 import { Toaster } from 'sonner';
 import { ContextMenu, ContextMenuTrigger } from '@/components/ui/context-menu';
 import { ThemeProvider } from '@/components/theme-provider';
+import { hasLocale } from 'next-intl';
+import { notFound } from 'next/navigation';
+import { routing } from '@/i18n/routing';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,9 +18,15 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
+  params
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
@@ -30,7 +39,6 @@ export default async function RootLayout({
                   {children}
                 </main>
                 <Toaster />
-                {/* <ThemeSwitcher /> */}
               </div>
             </ContextMenuTrigger>
           </ContextMenu>

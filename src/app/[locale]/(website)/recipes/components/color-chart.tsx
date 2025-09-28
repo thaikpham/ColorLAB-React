@@ -3,12 +3,14 @@ import { RecipeDot } from "@/type/recipe.type";
 import ColorDot from "./color-dot"
 import { memo, useState } from "react"
 import { useCallback } from "react"
+import { useTranslations } from "next-intl";
 
 interface ColorChartProps {
   recipes: RecipeDot[]
 }
 const ColorChart = ({ recipes }: ColorChartProps) => {
   const [hoveredPreset, setHoveredPreset] = useState<RecipeDot | null>(null);
+  const t = useTranslations('recipes.colorMap');
 
   const handleNodeHover = useCallback((preset: RecipeDot | null) => {
     setHoveredPreset(preset);
@@ -38,7 +40,7 @@ const ColorChart = ({ recipes }: ColorChartProps) => {
         <rect x="0" y="0" width="836" height="536" fill="url(#grid)" />
 
         <text className="fill-primary text-sm font-medium select-none" x="418" y="20" textAnchor="middle">
-          ↑ PUNCHY CONTRAST
+          {`↑ ${t('punchyContrast')}`}
         </text>
         <text
           className="fill-primary text-sm font-medium select-none"
@@ -46,7 +48,7 @@ const ColorChart = ({ recipes }: ColorChartProps) => {
           y="525"
           textAnchor="middle"
         >
-          ↓ SOFT CONTRAST
+          {`↓ ${t('softContrast')}`}
         </text>
         <text
           className="fill-primary text-sm font-medium select-none"
@@ -55,7 +57,7 @@ const ColorChart = ({ recipes }: ColorChartProps) => {
           textAnchor="middle"
           transform="rotate(-90, 20, 270)"
         >
-          ← COOL
+          {`← ${t('cool')}`}
         </text>
         <text
           className="fill-primary text-sm font-medium select-none"
@@ -64,7 +66,7 @@ const ColorChart = ({ recipes }: ColorChartProps) => {
           textAnchor="middle"
           transform="rotate(90, 816, 270)"
         >
-          WARM →
+          {`${t('warm')} →`}
         </text>
 
         {recipes?.map((preset) => (
