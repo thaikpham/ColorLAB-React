@@ -1,5 +1,5 @@
 "use client"
-import { logoutAction } from "@/app/(auth)/action";
+import { logoutAction } from "@/app/[locale]/(auth)/action";
 import { useUserStore } from "@/store/user-store";
 import { LogOut } from "lucide-react";
 import { useActionState, useCallback } from "react";

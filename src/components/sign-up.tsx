@@ -1,5 +1,4 @@
 "use client"
-import { signUpAction } from '@/app/(auth)/sign-up/action'
 import { Logo } from '@/components/logo'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -7,6 +6,7 @@ import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import { useActionState, useCallback, useEffect, useRef, useState } from 'react'
 import { Dropzone, DropzoneContent, DropzoneEmptyState } from './ui/kibo-ui/dropzone'
+import { signUpAction } from '@/app/[locale]/(auth)/sign-up/action'
 
 export default function SignUpComponent() {
   const [files, setFiles] = useState<File[] | undefined>();

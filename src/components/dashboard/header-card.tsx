@@ -11,7 +11,9 @@ const DashboardHeader = () => {
               Dashboard 📊
             </Link>
           </h2>
-          <p className="text-muted-foreground">Welcome back! Here's your SNCL overview</p>
+          <p className="text-muted-foreground">
+            {`Welcome back! Here's your SNCL overview`}
+          </p>
         </div>
         <div className="flex items-center space-x-4">
         </div>

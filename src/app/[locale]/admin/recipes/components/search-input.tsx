@@ -12,7 +12,7 @@ const SearchInput = ({ value }: SearchInputProps) => {
     if (event.key === 'Enter') {
       push(`/admin/recipes?name=${event.currentTarget.value}`)
     }
-  }, []);
+  }, [push]);
   return (
     <Input
       type="text"
