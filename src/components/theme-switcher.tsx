@@ -4,7 +4,7 @@ import Image from 'next/image';
 import React, { useCallback, useEffect, useState } from 'react';
 
 const ThemeSwitcher = () => {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme: theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false)
   const [isChecked, setIsChecked] = useState(theme === 'dark');
 
