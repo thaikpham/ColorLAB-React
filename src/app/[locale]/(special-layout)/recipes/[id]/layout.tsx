@@ -1,12 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '@/app/globals.css';
-import Footer from '@/components/footer';
 import GradientBackground from '@/components/ui/gradient-background';
 import { Toaster } from 'sonner';
 import { ContextMenu, ContextMenuTrigger } from '@/components/ui/context-menu';
 import { ThemeProvider } from '@/components/theme-provider';
-import ThemeSwitcher from '@/components/theme-switcher';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
@@ -38,22 +36,14 @@ export default async function RootLayout({
             <ContextMenuTrigger>
               <div className="relative min-h-screen w-full">
                 <GradientBackground />
-                <main className="relative z-10 w-full lg:mx-auto lg:max-w-7xl">
+                <main className="relative z-10 w-full px-8">
                   <NextIntlClientProvider>{children}</NextIntlClientProvider>
-                  <Footer />
+                  {/* <Footer /> */}
                 </main>
                 <Toaster />
                 {/* <ThemeSwitcher /> */}
-                {/* <MenuButton /> */}
               </div>
             </ContextMenuTrigger>
-            {/* <ContextMenuContent className='lg:w-xs'> */}
-            {/*   <ContextMenuItem asChild className='py-2'> */}
-            {/*     <Link href="/recipes"> */}
-            {/*       <span className="text-secondary-foreground text-nowrap">Explore Recipes</span> */}
-            {/*     </Link> */}
-            {/*   </ContextMenuItem> */}
-            {/* </ContextMenuContent> */}
           </ContextMenu>
         </ThemeProvider>
       </body>

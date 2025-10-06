@@ -53,3 +53,4 @@ export interface RecipeData {
 
 export type RecipeDot = Pick<RecipeData, 'id' | 'name' | 'personalityColor' | 'coords' | 'trending'>
 export type RecipeTableList = Pick<RecipeData, 'id' | 'name' | 'contrast' | 'personalityColor' | 'saturation'>
+export type RecipeCardDetail = Pick<RecipeData, 'id' | 'name' | 'description'>
