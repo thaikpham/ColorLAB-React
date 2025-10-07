@@ -22,7 +22,7 @@ interface TutorialGuideProps {
 export function TutorialGuide({ className = "" }: TutorialGuideProps) {
   const [isVisible, setIsVisible] = useState(true);
   const t = useTranslations('guide');
-  const steps = useMemo(() => t.raw('steps') as Array<TutorialStep>, [])
+  const steps = useMemo(() => t.raw('steps') as Array<TutorialStep>, [t])
 
   const cameraModels: CameraModel[] = useMemo(() => [
     { id: "alpha7IV", name: "α7 IV" },

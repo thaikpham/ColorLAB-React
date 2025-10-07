@@ -1,5 +1,4 @@
 import { RecipeCardDetail, RecipeData } from "@/type/recipe.type";
-import { getTranslations } from "next-intl/server";
 import { Card } from "@/components/ui/card";
 import RecipeSidebar from "./recipe-sidebar";
 import WhiteBalanceGrid from "./white-balance-grid";
@@ -24,7 +23,7 @@ const mainSettingsRecord: Record<string, string> = {
 }
 
 const RecipeDetailComponent = async ({ recipe, recipes }: RecipeDetailComponentProps) => {
-  const t = await getTranslations('detail');
+  // const t = await getTranslations('detail');
   return (
     <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 pt-4">
       {/* left side bar */}

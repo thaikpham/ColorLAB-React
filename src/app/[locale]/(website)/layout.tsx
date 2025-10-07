@@ -6,7 +6,6 @@ import GradientBackground from '@/components/ui/gradient-background';
 import { Toaster } from 'sonner';
 import { ContextMenu, ContextMenuTrigger } from '@/components/ui/context-menu';
 import { ThemeProvider } from '@/components/theme-provider';
-import ThemeSwitcher from '@/components/theme-switcher';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
